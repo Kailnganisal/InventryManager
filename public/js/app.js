@@ -34945,38 +34945,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 3:
                 response = _context4.sent;
-                console.log("response " + JSON.stringify(response));
 
                 if (!(response.data.status === 'success')) {
-                  _context4.next = 9;
+                  _context4.next = 8;
                   break;
                 }
 
-                _context4.next = 8;
+                _context4.next = 7;
                 return _this4.fetchPneumaticData();
 
-              case 8:
+              case 7:
                 _this4.showSuccessMessage("Component Successfully Added");
 
-              case 9:
+              case 8:
                 _this4.clearFields();
 
-                _context4.next = 15;
+                _context4.next = 14;
                 break;
 
-              case 12:
-                _context4.prev = 12;
+              case 11:
+                _context4.prev = 11;
                 _context4.t0 = _context4["catch"](0);
                 Object.values(_context4.t0.response.data.errors).forEach(function (error) {
                   _this4.showErrorMessage(error);
                 });
 
-              case 15:
+              case 14:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[0, 12]]);
+        }, _callee4, null, [[0, 11]]);
       }))();
     },
     handleEditPart: function handleEditPart(newPart) {
@@ -35202,7 +35201,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_LandingPage), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_notifications, {
     position: "top right"
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("    <div id=\"app\">"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("        <button type=\"button\" class=\"btn\" @click=\"showModal\">Open Modal!</button>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("        <Modal  v-show=\"isModalVisible\" @close=\"closeModal\"/>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("    </div>")], 64
+  })], 64
   /* STABLE_FRAGMENT */
   );
 }

@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.vue-notification {
+    margin: 0 25px 25px;
+    padding: 10px;
+    font-size: 12px;
+    color: #ffffff;
+    border-left: 5px solid #187fe7;
+}
+
+    .success {
+        background: #68cd86;
+        border-left-color: #42a85f;
+    }
+
+
+
+
+
+
+

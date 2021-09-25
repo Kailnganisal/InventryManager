@@ -23,3 +23,7 @@ Route::delete('/pneumatics/{pneumaticPart}',[\App\Http\Controllers\pneumaticCont
 Route::get('/pneumatics/{pneumaticPart}',[\App\Http\Controllers\pneumaticController::class,'edit']);
 Route::post('/pneumatics/store',[\App\Http\Controllers\pneumaticController::class,'store']);
 Route::post('/pneumatics/{pneumaticPart}',[\App\Http\Controllers\pneumaticController::class,'update']);
+
+Route::get('/{any}', function () {
+    return view('welcome');
+})->where('any', '.*');

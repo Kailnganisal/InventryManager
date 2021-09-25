@@ -1,12 +1,6 @@
 <template>
     <LandingPage/>
     <notifications position="top right"/>
-
-<!--    <div id="app">-->
-<!--        <button type="button" class="btn" @click="showModal">Open Modal!</button>-->
-<!--        <Modal  v-show="isModalVisible" @close="closeModal"/>-->
-<!--    </div>-->
-
 </template>
 
 <script>

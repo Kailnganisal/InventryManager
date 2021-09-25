@@ -200,8 +200,6 @@ export default {
             try {
                 let response = await this.axios.post('pneumatics/store', newPart);
 
-                console.log("response "+JSON.stringify(response))
-
                 if (response.data.status === 'success') {
                     await this.fetchPneumaticData();
                     this.showSuccessMessage("Component Successfully Added")

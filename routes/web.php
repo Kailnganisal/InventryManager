@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,16 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', function () {
+    logger("session dom ".env('SESSION_DOMAIN'));
     return view('welcome');
 });
 
 
 
-Route::get('/pneumatics',[\App\Http\Controllers\pneumaticController::class,'index']);
-Route::delete('/pneumatics/{pneumaticPart}',[\App\Http\Controllers\pneumaticController::class,'destroy']);
-Route::get('/pneumatics/{pneumaticPart}',[\App\Http\Controllers\pneumaticController::class,'edit']);
-Route::post('/pneumatics/store',[\App\Http\Controllers\pneumaticController::class,'store']);
-Route::post('/pneumatics/{pneumaticPart}',[\App\Http\Controllers\pneumaticController::class,'update']);
+Route::middleware('auth:sanctum')->get('/pneumatics',[\App\Http\Controllers\pneumaticController::class,'index']);
+Route::middleware('auth:sanctum')->delete('/pneumatics/{pneumaticPart}',[\App\Http\Controllers\pneumaticController::class,'destroy']);
+Route::middleware('auth:sanctum')->get('/pneumatics/{pneumaticPart}',[\App\Http\Controllers\pneumaticController::class,'edit']);
+Route::middleware('auth:sanctum')->post('/pneumatics/store',[\App\Http\Controllers\pneumaticController::class,'store']);
+Route::middleware('auth:sanctum')->post('/pneumatics/{pneumaticPart}',[\App\Http\Controllers\pneumaticController::class,'update']);
+
+Route::get('/getauthuser',[\App\Http\Controllers\AuthUserController::class,'index']);
 
 Route::get('/{any}', function () {
     return view('welcome');

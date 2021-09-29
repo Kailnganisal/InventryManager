@@ -16,7 +16,7 @@ class pneumaticController extends Controller
         $pneumatics = pneumaticPart::when(request('search_key'), function ($query) {
             $query->where('part', 'like' , request('search_key').'%')
                 ->orWhere('tube_size', request('search_key'));
-        })->get();
+        })->paginate(request('record_count', 5));
 
         return response()->json($pneumatics);
     }

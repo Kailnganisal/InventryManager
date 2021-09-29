@@ -11,15 +11,18 @@ import router from "./router";
 import axios from 'axios';
 import VueAxios from "vue-axios";
 import Notifications, {notify} from '@kyvg/vue3-notification'
+import store from './store'
+import 'vue-select/dist/vue-select.css'
+
 
 axios.defaults.withCredentials = true
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
 
-//const app = createApp(App)
-createApp(App).use(router).use(VueAxios, axios).use(Notifications).mount('#app')
-// const app = createApp(App)
-// app.config.globalProperties.$axios = axios;
-// app.use(router)
-// app.use(Notifications)
-// app.mount('#app')
+createApp(App)
+    .use(VueAxios, axios)
+    .use(router)
+    .use(Notifications)
+    .use(store)
+    .mount('#app')
+

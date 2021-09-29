@@ -65,14 +65,11 @@ export default {
 
     methods: {
         handleLogin() {
-            console.log("handle log");
            this.axios.get('/sanctum/csrf-cookie').then(res => {
-               console.log("santum response "+JSON.stringify(res));
                 this.axios.post('/login',this.form,
-                ).then(response => {
-                    console.log("login "+JSON.stringify(response));
+                ).then(() => {
                     window.location = '/store'
-                });
+                }).catch(()=>this.showErrorMessage("Authentication failed"));
             });
         }
     }

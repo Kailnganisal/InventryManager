@@ -1,7 +1,7 @@
 <template>
 <div>
 
-    <Table title="Pneumatic Components" :headers="headers" @onSearch="onSearch" @isShow="showModal">
+    <Table title="Pneumatic Components" :headers="headers" @onSearch="onSearch" @isShow="showModal" @refreshPage="refreshPage" :total="total">
         <template v-slot:content>
             <tr v-for="pneumaticRow in data">
                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
@@ -119,6 +119,9 @@ export default {
             isEdit: false,
             newPart:[],
             editID:'',
+            page: 1,
+            total:0,
+            recordCount:5,
         }
     },
 
@@ -128,7 +131,6 @@ export default {
 
     methods:{
         showModal() {
-            console.log(this.isModalVisible)
             this.isModalVisible = true;
         },
 
@@ -140,10 +142,14 @@ export default {
         async fetchPneumaticData(){
             let response = await this.axios.get('/pneumatics', {
                 params:{
-                    search_key: this.searchKey
+                    search_key: this.searchKey,
+                    page: this.page,
+                    record_count: this.recordCount
                 }
             });
-            this.data = response.data;
+
+            this.data = response.data.data;
+            this.total = response.data.total;
         },
 
         onSearch(searchKey){
@@ -198,7 +204,7 @@ export default {
         async handleAddPart(newPart) {
 
             try {
-                let response = await this.axios.post('pneumatics/store', newPart);
+                let response = await this.axios.post('pneumatics/index', newPart);
 
                 if (response.data.status === 'success') {
                     await this.fetchPneumaticData();
@@ -228,6 +234,12 @@ export default {
                 })
             }
 
+        },
+
+        refreshPage(page, recordCount){
+            this.page=page;
+            this.recordCount = recordCount
+            this.fetchPneumaticData();
         },
 
         clearFields(){

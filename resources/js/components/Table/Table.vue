@@ -34,32 +34,85 @@
                     </tbody>
 
                 </table>
+
+            </div>
+            <div class="flex justify-between m-4">
+                <v-pagination
+                    v-model="page"
+                    :pages= "pages"
+                    :range-size="2"
+                    active-color="#fbbf24"
+                    @update:modelValue="updateHandler"
+                />
+                <div class="w-24">
+                    <Multiselect
+                        v-model="value"
+                        :options="pageCountOptions"
+                        label="count"
+                        value-prop="count"
+                        :can-clear="false"
+                    />
+
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import VPagination from "@hennge/vue3-pagination";
+import Multiselect from '@vueform/multiselect';
+import "@hennge/vue3-pagination/dist/vue3-pagination.css";
+
 export default {
     name: "Table",
+
     props:{
         title:String,
         headers: Array,
+        total:Number,
     },
+
+    components:{
+      VPagination, Multiselect,
+    },
+
     data(){
         return{
             searchKey:null,
+            page:1,
+            pageCountOptions: [
+                {count: 5},
+                {count: 10},
+                {count: 15},
+            ],
+            value: 5,
+        }
+    },
+
+    watch: {
+        value() {
+            this.page =1
+            this.updateHandler(this.page)
+            console.log("value changed"+this.value)
+        }
+    },
+    computed:{
+        pages(){
+            return Math.ceil(this.total/this.value);
         }
     },
     methods:{
         onSearch(){
             this.$emit('onSearch', this.searchKey)
         },
+
+        updateHandler(page) {
+            this.$emit('refreshPage',page, this.value);
+        },
     }
 
 }
 </script>
 
-<style scoped>
-
-</style>
+<style src="@vueform/multiselect/themes/default.css"></style>

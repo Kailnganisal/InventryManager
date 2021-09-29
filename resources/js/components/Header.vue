@@ -52,23 +52,19 @@ export default {
         }
     },
 
-    created() {
-        this.axios.get('/getauthuser')
-            .then(response=>{
-                    if(Object.keys(response.data).length === 0){
-                        console.log("logged out")
-                        this.isShowLogin = false
+    async created() {
 
-                    } else{
-                        this.isShowLogin = true
-                        this.currentUser = response.data.username
-                        console.log(response.data.username)
-                    }
+        await this.$store.dispatch('authUser')
+        console.log("UserName" + JSON.stringify(this.$store.state.authUser.username))
+        let authUser = this.$store.state.authUser
+        if (Object.keys(authUser).length === 0) {
+            this.isShowLogin = false
 
-            }
+        } else {
+            this.isShowLogin = true
+            this.currentUser = authUser.username
+        }
 
-            );
-        //console.log(this.text)
     },
 
     methods: {

@@ -24,5 +24,11 @@ export default createStore({
                 })
             })
         }
+    },
+
+    getters: {
+        authUser: state => {
+            return state.authUser
+        }
     }
 })

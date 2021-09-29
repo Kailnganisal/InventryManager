@@ -35184,7 +35184,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   props: {},
   data: function data() {
     return {
-      headers: ['ID', 'Quantity', 'Part', 'Tube Size', 'Description', 'Warranty', 'Action'],
       searchKey: null,
       data: [],
       isModalVisible: false,
@@ -35200,6 +35199,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       total: 0,
       recordCount: 5
     };
+  },
+  computed: {
+    isAdmin: function isAdmin() {
+      return this.$store.getters.authUser && this.$store.getters.authUser.roll === 'Admin';
+    },
+    headers: function headers() {
+      return this.isAdmin ? ['ID', 'Quantity', 'Part', 'Tube Size', 'Description', 'Warranty', 'Action'] : ['ID', 'Quantity', 'Part', 'Tube Size', 'Description', 'Warranty'];
+    }
   },
   mounted: function mounted() {
     this.fetchPneumaticData();
@@ -36032,6 +36039,7 @@ var _hoisted_6 = {
   "class": "border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
 };
 var _hoisted_7 = {
+  key: 0,
   "class": "flex justify-between border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
 };
 var _hoisted_8 = ["onClick"];
@@ -36129,7 +36137,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Table, {
     title: "Pneumatic Components",
-    headers: $data.headers,
+    headers: $options.headers,
     onOnSearch: $options.onSearch,
     onIsShow: $options.showModal,
     onRefreshPage: $options.refreshPage,
@@ -36149,7 +36157,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         /* TEXT */
         ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(pneumaticRow.warranty), 1
         /* TEXT */
-        ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+        ), $options.isAdmin ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("td", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
           onClick: function onClick($event) {
             return $options.onEdit(pneumaticRow.id);
           },
@@ -36163,7 +36171,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           "class": "bg-transparent hover:bg-red-200 font-bold border border-red-600 rounded-lg pt-0.5 pb-0.5 pl-1.5 pr-1.5 shadow"
         }, " Delete ", 8
         /* PROPS */
-        , _hoisted_9)])]);
+        , _hoisted_9)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
       }), 256
       /* UNKEYED_FRAGMENT */
       ))];
@@ -36727,6 +36735,11 @@ __webpack_require__.r(__webpack_exports__);
           console.log(error);
         });
       });
+    }
+  },
+  getters: {
+    authUser: function authUser(state) {
+      return state.authUser;
     }
   }
 }));

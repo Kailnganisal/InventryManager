@@ -22,7 +22,9 @@
                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     {{pneumaticRow.warranty}}
                 </td>
-                <td class=" flex justify-between border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                <td
+                    v-if="isAdmin"
+                    class=" flex justify-between border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     <button @click="onEdit(pneumaticRow.id)" class="bg-transparent hover:bg-yellow-200 border border-yellow-500 font-bold rounded-lg pt-0.5 pb-0.5 pl-1.5 pr-1.5 shadow">
                         Edit
                     </button>
@@ -99,15 +101,6 @@ export default {
     },
     data(){
         return{
-            headers: [
-                'ID',
-                'Quantity',
-                'Part',
-                'Tube Size',
-                'Description',
-                'Warranty',
-                'Action'
-            ],
             searchKey:null,
             data:[],
             isModalVisible:false,
@@ -122,6 +115,19 @@ export default {
             page: 1,
             total:0,
             recordCount:5,
+        }
+    },
+
+    computed:{
+        isAdmin(){
+           return this.$store.getters.authUser
+               && this.$store.getters.authUser.roll ==='Admin'
+        },
+
+        headers(){
+           return  this.isAdmin
+               ? ['ID', 'Quantity', 'Part', 'Tube Size', 'Description', 'Warranty', 'Action']
+               : ['ID', 'Quantity', 'Part', 'Tube Size', 'Description', 'Warranty',]
         }
     },
 
